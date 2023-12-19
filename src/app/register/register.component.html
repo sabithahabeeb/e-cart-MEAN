@@ -4,31 +4,39 @@
         <img class="w-75"  src="https://media.istockphoto.com/id/1281150061/fr/vectoriel/enregistrer-compte-soumettre-acc%C3%A8s-mot-de-passe-de-connexion-nom-dutilisateur-internet.jpg?b=1&s=612x612&w=0&k=20&c=nkGOUnsjeMNtjQ9SCEterGIj3BEeJ3_u-ObXw478pN8=" alt="">
       </div>
       <div class="col-lg-4">
-        <form >
+        <form [formGroup]="registerForm" (ngSubmit)="register()">
             <h1 class="fw-bolder mb-5">Welcome User</h1>
             <div class="form-floating mb-3 ">
               
-                <input type="text" class="form-control" name="username" id="floatingInput" placeholder="User name"  email required >
+                <input type="text" class="form-control" name="username" id="floatingInput" placeholder="Username"   formControlName="username">
                 <label  for="floatingInput">Username</label>
               </div>
+              <!-- validation username -->
+              <div *ngIf="this.registerForm.get('username')?.errors&&this.registerForm.get('username')?.touched" class="mb-3 fw-bolder text-danger">
+                *Invalid UserName
+              </div>
+
+
             <div class="form-floating mb-3 ">
               
-                <input type="email" class="form-control" name="email" id="floatingInput" placeholder="name@example.com"  email required >
+                <input type="email" class="form-control" name="email" id="floatingInput" placeholder="name@example.com" formControlName="email" >
                 <label  for="floatingInput">Email address</label>
               </div>
               <!-- Invalid email -->
-              <!-- <div *ngIf="useremailinput.invalid && useremailinput.touched" class="mb-3 text-danger fw-bolder">
-                Invalid Email
-              </div> -->
+            
+              <div *ngIf="this.registerForm.get('email')?.errors&&this.registerForm.get('email')?.touched" class="mb-3 fw-bolder text-danger">
+                *Invalid email
+              </div>
               <div class="form-floating mb-3 ">
                 
-                <input type="password" id="floatingPassword" placeholder="password" class="form-control" name="password">
+                <input type="password" id="floatingPassword" placeholder="password" class="form-control" name="password" formControlName="password" >
                 <label for="floatingPassword">Password</label>
               </div>
                <!-- Invalid password -->
-               <!-- <div *ngIf="userpassword.invalid && userpassword.touched" class="mb-3 text-danger fw-bolder">
-                Invalid Password
-              </div> -->
+               
+               <div *ngIf="this.registerForm.get('password')?.errors&&this.registerForm.get('password')?.touched" class="mb-3 fw-bolder text-danger">
+                *Invalid  Password
+              </div>
               <div class="d-grid">
                 <button  type="submit" class="btn btn-primary">Register</button></div>
                 
