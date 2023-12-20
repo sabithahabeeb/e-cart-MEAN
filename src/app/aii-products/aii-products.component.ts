@@ -19,7 +19,15 @@ ngOnInit(): void {
 
 addWishlist(produst:any){
   if(sessionStorage.getItem("token")){
-    this.toaster.showSuccess("proceed to add item to wishlist")
+    this.api.addToWishlistAPI(produst.id).subscribe({
+      next:(res:any)=>{
+        this.toaster.showSuccess(`product added to your wishlist!!`)
+      },
+      error:(err:any)=>{
+        this.toaster.showWarning(err.error)
+      }
+    })
+    
   }else{
     this.toaster.showWarning("Operation Denied...  Please login!!!")
   }
