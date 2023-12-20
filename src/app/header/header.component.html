@@ -23,10 +23,15 @@
                 <button class="btn btn-outline-dark d-flex align-items-center"><i class="fa-solid fa-cart-plus text-success me-1"></i>Cart<span class="badge bg-dark ms-1">0</span>  </button>
             </a>
           </li>
-          <li class="nav-item active">
+          <li *ngIf="!loginUsername" class="nav-item active">
             <a class="nav-link" routerLink="user/login">
                 <button class="btn "><i class="fa-solid fa-user "></i>Login </button>
             </a>
+          </li>
+          <li *ngIf="loginUsername" class="nav-item active">
+            <span class="fw-bolder text-primary d-flex align-items-center" > Welcome {{loginUsername}} 
+                <button (click)="logout()" class="btn btn-outline-dark d-flex align-items-center ms-2"><i class="fa-solid fa-user  me-1"></i>Logout </button></span>
+           
           </li>
         </ul>
     
