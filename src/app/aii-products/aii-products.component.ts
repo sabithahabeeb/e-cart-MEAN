@@ -17,11 +17,11 @@ ngOnInit(): void {
   })
 }
 
-addWishlist(produst:any){
+addWishlist(product:any){
   if(sessionStorage.getItem("token")){
-    this.api.addToWishlistAPI(produst.id).subscribe({
+    this.api.addToWishlistAPI(product).subscribe({
       next:(res:any)=>{
-        this.toaster.showSuccess(`product added to your wishlist!!`)
+        this.toaster.showSuccess(`${res.title} added to your wishlist!!`)
       },
       error:(err:any)=>{
         this.toaster.showWarning(err.error)
@@ -33,9 +33,20 @@ addWishlist(produst:any){
   }
 }
 
-addtocart(produst:any){
+addtocart(product:any){
   if(sessionStorage.getItem("token")){
-    this.toaster.showSuccess("proceed to add item to cart")
+    Object.assign(product,{quantity:1})
+    this.api.addcartAPI(product).subscribe({
+      next:(res:any)=>{
+        this.toaster.showSuccess(res)
+      },
+      error:(err:any)=>{
+        console.log(err);
+        this.toaster.showError(err.error)
+        
+      }
+    })
+    
   }else{
     this.toaster.showWarning("Operation Denied...  Please login!!!")
   }
