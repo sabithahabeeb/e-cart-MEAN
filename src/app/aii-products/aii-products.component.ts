@@ -22,6 +22,7 @@ addWishlist(product:any){
     this.api.addToWishlistAPI(product).subscribe({
       next:(res:any)=>{
         this.toaster.showSuccess(`${res.title} added to your wishlist!!`)
+        this.api.getwishlistCount()
       },
       error:(err:any)=>{
         this.toaster.showWarning(err.error)

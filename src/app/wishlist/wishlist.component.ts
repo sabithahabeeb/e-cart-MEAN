@@ -23,6 +23,8 @@ getWishlist(){
 removeItem(id:any){
   this.api.deleteWishlistItemAPI(id).subscribe({
     next:(res:any)=>{
+      console.log(res);
+      
       this.getWishlist()
     },
     error:(err:any)=>{

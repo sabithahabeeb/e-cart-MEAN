@@ -9,7 +9,10 @@ export class ApiService {
   SERVER_URL = "http://localhost:3000"
 
   constructor(private http: HttpClient) { 
-    this.getwishlistCount()
+    if(sessionStorage.getItem("token")){
+      this.getwishlistCount()
+    }
+    
   }
  wishlistCount = new BehaviorSubject(0)
 

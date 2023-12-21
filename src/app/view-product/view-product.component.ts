@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../services/api.service';
+import { ToasterService } from '../services/toaster.service';
 
 @Component({
   selector: 'app-view-product',
@@ -10,7 +11,7 @@ import { ApiService } from '../services/api.service';
 export class ViewProductComponent implements OnInit {
 
   product: any = {}
-  constructor(private route: ActivatedRoute, private api: ApiService) { }
+  constructor(private route: ActivatedRoute, private api: ApiService, private toaster:ToasterService) { }
   ngOnInit(): void {
     this.route.params.subscribe((res: any) => {
       console.log(res);
@@ -33,5 +34,23 @@ export class ViewProductComponent implements OnInit {
       }
     })
 
+  }
+
+
+  addWishlist(product:any){
+    if(sessionStorage.getItem("token")){
+      this.api.addToWishlistAPI(product).subscribe({
+        next:(res:any)=>{
+          this.toaster.showSuccess(`${res.title} added to your wishlist!!`)
+          this.api.getwishlistCount()
+        },
+        error:(err:any)=>{
+          this.toaster.showWarning(err.error)
+        }
+      })
+      
+    }else{
+      this.toaster.showWarning("Operation Denied...  Please login!!!")
+    }
   }
 }
